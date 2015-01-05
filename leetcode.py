@@ -70,9 +70,6 @@ def test_compare_version():
     assert compare_version('0.1','0.0.1') == 1
     print 'test passed'
 
-#test_compare_version()            
-
-
 #q.160
 #Definition for singly-linked list.
 class ListNode:
@@ -128,8 +125,6 @@ def test_is_palindrome():
 
 
 
-
-
 #q.
 #Given a sorted array, remove the dublicates in place such that each element appear only once
 #do not allocate extra space for another array, you must do this in place with constant memory
@@ -164,7 +159,7 @@ def test_remove_duplicates():
     assert  remove_duplicates([1,1,2,2,2,3,3]) == 3   
     print "test passes"
 
-test_remove_duplicates()
+
 
 #Given an array an a value, remove all instances of that value in place an return  the new length
 #the order of elements can be changed
@@ -182,7 +177,7 @@ def test_remove_element():
     assert  remove_elemtn([1],1) == 0  
 
 
-#
+# q.38
 # The count-and-say sequence is the sequence of integers beginning as follows:
 # 1, 11, 21, 1211, 111221, ...
 #
@@ -190,14 +185,38 @@ def test_remove_element():
 # 11 is read off as "two 1s" or 21.
 # 21 is read off as "one 2, then one 1" or 1211.
 # Given an integer n, generate the nth sequence
-# return a string
 def count_and_say(n):
-    pass
+    "return a string"
+    def say(i):
+        str_n = str(n)
+        result = ""
+        total = 0
+        for i in str_n:
+            count_i = str_n.count(i)
+            total += count_i
+            if total <= len(str_n):
+                result += str(count_i) + str(i)
+        yield result
+        
+    for x in range(1,n):
+        say(x)
+    
+    
+        
+    
     
     
 
 def test_count_and_say():
-    pass
+    print count_and_say(1)
+    # assert count_and_say(1) == "1"
+#     print count_and_say(2)
+#     assert count_and_say(2) == "11"
+#     assert count_and_say(3) == "21"
+#     assert count_and_say(4) == "1211"
+#     assert count_and_say(5) == "111221"
+    print "test passes"
+    
 
 # q.66
 # Given a non-negative number represented as an array of digits, plus one to the number.
@@ -241,7 +260,7 @@ def test_plus_one():
     assert plus_one([1,9]) == [2,0]
     print "test passes"
 
-#test_plus_one()
+
 
 
 
@@ -299,7 +318,7 @@ def test_min_stack():
     print min_stack
     print "test passes"
 
-#test_min_stack()
+
 
 
 # q.58
@@ -325,13 +344,27 @@ def test_lengthof_lastword():
     assert lengthof_lastword("Hello test testtest") == 8                
     print "test passes"
     
-#test_lengthof_lastword()    
 
 #q.28
 #Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
 def str_str(haystack, needle):
     return haystack.find(needle)
+    
+    
+    
+    
+def test():
+    #test_majority_element()
+    #test_compare_version()     
+    #test_get_intersection_node
+    #test_remove_duplicates
+    #test_plus_one()
+    #test_min_stack()
+    #test_lengthof_lastword() 
+    test_count_and_say()   
+    
 
+test()
     
 
 

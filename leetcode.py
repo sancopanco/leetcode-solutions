@@ -187,34 +187,44 @@ def test_remove_element():
 # Given an integer n, generate the nth sequence
 def count_and_say(n):
     "return a string"
-    def say(i):
-        str_n = str(n)
-        result = ""
-        total = 0
-        for i in str_n:
-            count_i = str_n.count(i)
-            total += count_i
-            if total <= len(str_n):
-                result += str(count_i) + str(i)
-        yield result
+    r = "1"
+    for i in range(1,n):
+        r = say(r)
+    return r    
         
-    for x in range(1,n):
-        say(x)
+def say(s):
+    "return a string"
+    total = 0
+    result = ""
+    def adj_count_i(i,c):
+        count = 0
+        while i < len(s):
+            if s[i] == c:
+                count+=1
+            else:
+                break    
+            i+=1
+        return count
+    for i in range(len(s)):
+        c_i = adj_count_i(i,s[i])
+        total += c_i
+        print c_i,i,s[i]
+        if total <= len(s):
+            result += str(c_i) + s[i]
+    return result
+         
     
-    
-        
-    
-    
-    
-
 def test_count_and_say():
-    print count_and_say(1)
-    # assert count_and_say(1) == "1"
-#     print count_and_say(2)
+    # assert say("1") == "11"
+#     assert say("11") == "21"
+#     assert say("21") == "1211"
+#     assert say("1211") == "111221"
+#     assert count_and_say(1) == "1"
 #     assert count_and_say(2) == "11"
 #     assert count_and_say(3) == "21"
 #     assert count_and_say(4) == "1211"
 #     assert count_and_say(5) == "111221"
+    assert count_and_say(6) == "312211"
     print "test passes"
     
 
@@ -350,9 +360,82 @@ def test_lengthof_lastword():
 def str_str(haystack, needle):
     return haystack.find(needle)
     
+
+# q.110
+# Given a binary tree, determine if it is height-balanced.
+# For this problem, a height-balanced binary tree is defined as a binary tree
+# in which the depth of the two subtrees of every node never differ by more than 1.
+#Definition for a  binary tree node
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+def is_balanced(root):
+    """return a boolean
+    param root, a tree node
+    """
+    return depth(root) != -1;
+        
+
+def depth(root):
+    if root == None:
+        return 0
+    ldepth = depth(root.left)
+    #if ldepth == -1: return -1
+    rdepth = depth(root.right)
+    #if rdepth == -1: return -1    
+    if abs(ldepth-ldepth) > 1:
+        return -1
+    return max(ldepth,rdepth) + 1    
+        
+
+            
+        
     
     
+def test_is_balanced():
+    print "not implemented"    
+
+
+# q.67
+# Given two binary strings, return their sum (also a binary string).
+# For example,
+# a = "11"
+# b = "1"
+# Return "100".   
+def add_binary(a,b):
+    """return a string
+    param a, a string
+    param b, a string
+    """
+    max_len = max(len(a),len(b))
+    a = a + (max_len-len(a))*'0'
+    b = b + (max_len-len(b))*'0'
+    result = "" 
+    elde = 0 
+    for i in range(max_len):
+       a_i,b_i = int(a[i]),int(b[i])
+       if (a_i + b_i+elde) == 2:
+           elde = 1
+           t = 0
+       else:
+          t = (a_i + b_i+elde)%2
+       result += str(t)
+       if (i == max_len-1) and elde:
+           result+="1"
+    return result[::-1]
     
+    
+def test_add_binary():
+    #print add_binary("11","1")
+    assert add_binary("1","0") == "1"
+    assert add_binary("1","1") == "10"
+    assert add_binary("11","1") == "100"
+    assert add_binary("11","11") == "110"
+    assert add_binary("1010","1011") == "10101"  #"10110"
+                                         #01101        
 def test():
     #test_majority_element()
     #test_compare_version()     
@@ -361,7 +444,9 @@ def test():
     #test_plus_one()
     #test_min_stack()
     #test_lengthof_lastword() 
-    test_count_and_say()   
+    #test_count_and_say() 
+    #test_is_balanced()
+    test_add_binary() 
     
 
 test()

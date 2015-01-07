@@ -70,48 +70,7 @@ def test_compare_version():
     assert compare_version('0.1','0.0.1') == 1
     print 'test passed'
 
-#q.160
-#Definition for singly-linked list.
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
-        
-class LinkedList:
-    def __init__(self,head = None):
-        self.head = head
-        
-    def insert(self,node):
-        if not self.head:
-            self.head = node
-        else:
-            node.next = self.head
-            self.head = node    
-            
-            
 
-# find the node at which the intersection of two singly linked lists begins.
-# If the two linked lists have no intersection at all, return null.
-# The linked lists must retain their original structure after the function returns.
-# You may assume there are no cycles anywhere in the entire linked structure.
-# Your code should preferably run in O(n) time and use only O(1) memory.
-# @param two ListNodes
-# @return the intersected ListNode
-
-def get_intersection_node(head_a,head_b):
-    pass
-    
-def test_get_intersection_node():
-    linkedlst_a = LinkedList()
-    linkedlst_a.insert(ListNode('c3')),linkedlst_a.insert(ListNode('c2')),
-    linkedlst_a.insert(ListNode('c1')),
-    linkedlst_a.insert(ListNode('a1')),linkedlst_a.insert(ListNode('a2'))
-    linkedlst_b = LinkedList()
-    linkedlst_a.insert(ListNode('c3')),linkedlst_a.insert(ListNode('c2')),
-    linkedlst_a.insert(ListNode('c1')),
-    linkedlst_a.insert(ListNode('b3')),linkedlst_a.insert(ListNode('b2')),linkedlst_a.insert(ListNode('b2'))
-    assert get_intersection_node(linkedlst_a, linkedlst_b) == ListNode('c1')
-    
 
 #q. 
 #determine whether an integer is a palindrome
@@ -443,6 +402,10 @@ def test_add_binary():
 # Reverse digits of an integer.
 # Example1: x = 123, return 321
 # Example2: x = -123, return -321
+# If the integer's last digit is 0, what should the output be? ie, cases such as 10, 100.
+# Did you notice that the reversed integer might overflow?
+# Assume the input is a 32-bit integer, then the reverse of 1000000003 overflows. How should you handle such cases?
+# For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows
 def reverse(x):
     "return an integer"
     sign = 1 
@@ -465,6 +428,7 @@ def test_reverse():
     assert reverse(-1) == -1
     assert reverse(11) == 11
     assert reverse(-123) == -321
+    assert reverse(1534236469) == 0 # overflow
     print "test passes"    
     
 
@@ -504,8 +468,275 @@ def test_is_valid():
     assert is_valid("(]") == False
     assert is_valid("([)]") == False 
     print "test passes"   
-    
+
+
+
+# Implement atoi to convert a string to an integer.
+# Hint: Carefully consider all possible input cases.
+# If you want a challenge, please do not see below and ask yourself what are the possible input cases.
+# Notes: It is intended for this problem to be specified vaguely (ie, no given input specs).
+# You are responsible to gather all the input requirements up front#
+# The function first discards as many whitespace characters as necessary until the first non-whitespace character is found. Then,
+#  starting from this character, takes an optional initial plus or minus sign followed by as many numerical digits as possible,
+#   and interprets them as a numerical value.
+#
+# The string can contain additional characters after those that form the integral number,
+#  which are ignored and have no effect on the behavior of this function.
+#
+# If the first sequence of non-whitespace characters in str is not a valid integral number,
+#  or if no such sequence exists because either str is empty or it contains only whitespace characters, no conversion is performed.
+#
+# If no valid conversion could be performed, a zero value is returned.
+# If the correct value is out of the range of representable values, INT_MAX (2147483647) or INT_MIN (-2147483648) is returned
+
+def atoi(str):
+    "return an integer"
+    pass
+
+def test_atoi():
+    pass
+
+
+
+
+
+#Definition for singly-linked list.
+class ListNode:
+    def __init__(self, x):
+        self.data = x
+        self.next = None
         
+    def get_data(self):
+        return self.data
+        
+    def get_next(self):
+        return self.next    
+        
+    def set_data(self,newdata):
+        self.data = data 
+        
+    def set_next(self,newnext):    
+        self.next = newnext
+            
+class UnorderedList:
+    def __init__(self):
+        self.head = None
+    #O(1)    
+    def is_empty(self):
+        return self.head == None    
+    #O(1)    
+    def add(self,item):
+        tmp =  ListNode(item)
+        tmp.set_next(self.head)
+        self.head = tmp
+    #O(n)
+    def size(self):
+        current = self.head
+        count = 0
+        while current:
+            current = current.get_next()
+            count = count + 1
+        return count
+    #O(n)
+    def search(self,item):
+        current = self.head
+        found = False
+        while current and (not found):
+            if current.get_data() == item:
+                found = True
+            else:
+                current = current.get_next()            
+        return found
+    #O(n)
+    def remove(self,item):
+        current = self.head
+        previous = None
+        found = False
+        while not found:
+            if current.get_data() == data:
+                found = True
+            else:
+                previous = current
+                current = current.get_next()
+        if not previous:
+            self.head = current.get_next()
+        else:
+            previous.set_next(current.get_next())                 
+            
+    def insert(self,node):
+        
+        pass
+    def index(self):
+        pass
+    def pop(self):
+        pass
+    def append(self):
+        pass         
+    def __str__(self):
+        current = self.head
+        r = []
+        while current:
+            r.append(str(current.get_data()))
+            current = current.get_next()
+        return "->".join(r)                
+
+class OrderedList:
+    def __init__(self):
+        self.head = None
+    
+    #O(n)    
+    def search(self,item):
+        current = self.head
+        found = False
+        stop = False
+        while current and (not found and not stop):
+            if current.get_data() == item:
+                found = True
+            else:
+                if current.get_data > item:
+                    stop = True
+                else:
+                    current = current.get_next()
+        return found
+    #O(n)
+    def add(self,item):
+        current = self.head
+        previous = None
+        stop = False
+        while current and not stop:
+            if current.get_data() > item:
+                stop = True
+            else:
+                previous = current
+                current = current.get_next()
+                
+        tmp = ListNode(item)
+        if not previous:
+            tmp.set_next(self.head)
+            self.head = tmp
+        else:
+            tmp.set_next(current)
+            previous.set_next(tmp)
+            
+    def __str__(self):
+        current = self.head
+        r = []
+        while current:
+            r.append(str(current.get_data()))
+            current = current.get_next()
+        return "->".join(r)    
+            
+                              
+        
+                    
+                    
+                
+                    
+            
+            
+# q.160
+# find the node at which the intersection of two singly linked lists begins.
+# If the two linked lists have no intersection at all, return null.
+# The linked lists must retain their original structure after the function returns.
+# You may assume there are no cycles anywhere in the entire linked structure.
+# Your code should preferably run in O(n) time and use only O(1) memory.
+# @param two ListNodes
+# @return the intersected ListNode
+
+def get_intersection_node(head_a,head_b):
+    pass
+    
+def test_get_intersection_node():
+    mylist = UnorderedList()
+    mylist.add(31)
+    mylist.add(77)
+    mylist.add(17)
+    mylist.add(93)
+    mylist.add(26)
+    mylist.add(54)
+    assert get_intersection_node(linkedlst_a, linkedlst_b) == ListNode('c1')
+        
+        
+
+#
+# You are given two linked lists representing two non-negative numbers.
+# The digits are stored in reverse order and each of their nodes contain a single digit.
+# Add the two numbers and return it as a linked list.
+
+def add_two_numbers(l1,l2):
+    "return a ListNode"
+    head = ListNode()
+    current_1,current_2 = l1,l2
+    c = 0
+    while current_1:
+        d_1 = current_1.data
+        d_2 = current_2.data
+        add = (d_1+d_2+c);
+        c = add/10;
+        digit = ListNode(add%10)
+        digit.next = head
+        head = digit
+        current_1 = current_1.next
+    return head    
+    
+    
+
+def test_add_two_numbers():
+    l1 = UnorderedList()
+    l1.add(3)
+    l1.add(4)
+    l1.add(2)
+    print l1
+    
+    l2 = OrderedList()
+    l2.add(4)
+    l2.add(6)
+    l2.add(5)
+    print l2
+    
+    r = OrderedList()
+    l2.add(8)
+    l2.add(0)
+    l2.add(7)
+    
+    assert add_two_numbers(l1,l2) == r    
+
+# Find the contiguous subarray within an array (containing at least one number) which has the largest sum
+# If you have figured out the O(n) solution,
+# try coding another solution using the divide and conquer approach, which is more subtle.
+def max_sub_array(A):
+    pass
+    
+#O(n)    
+def max_sub_array_v2(A):
+    max_so_far = 0
+    max_ending_here = 0 
+    for a in A:
+        max_ending_here = max_ending_here + a
+        if max_ending_here < 0:
+             max_ending_here = 0
+        elif max_so_far < max_ending_here:
+            max_so_far = max_ending_here
+    return  max_so_far   
+    
+#O(n)Kadane's algorithm 
+def max_sub_array_v3(A):
+    max_ending_here = max_so_far = A[0]
+    for x in A[1:]:
+        max_ending_here = max(x, max_ending_here + x)
+        max_so_far = max(max_so_far, max_ending_here)
+    return max_so_far    
+        
+    
+def test_max_sub_array():
+    print max_sub_array_v3([-2, -3, 4, -1, -2, 1, 5, -3])
+    #assert max_sub_array_v2([-2, -3, 4, -1, -2, 1, 5, -3]) == 4
+    assert max_sub_array_v3([4, -2, 7, 4, -8, -6, 2, 9, 1, 0, -4]) == 13
+    assert max_sub_array_v3([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]) == 0
+    assert max_sub_array_v3([-2,1,-3,4,-1,2,1,-5,4]) == 6 #[4,-1,2,1]
+    print "test passes"
+
+    
 def test():
     #test_majority_element()
     #test_compare_version()     
@@ -519,8 +750,9 @@ def test():
     #test_add_binary()
     #test_reverse() 
     #test_roman_to_int()
-    test_is_valid()
-    
+    #test_is_valid()
+    #test_add_two_numbers()
+    #test_max_sub_array()
 
 test()
     

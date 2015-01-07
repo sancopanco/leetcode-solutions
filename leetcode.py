@@ -658,7 +658,7 @@ def test_get_intersection_node():
         
         
 
-#
+# q.2
 # You are given two linked lists representing two non-negative numbers.
 # The digits are stored in reverse order and each of their nodes contain a single digit.
 # Add the two numbers and return it as a linked list.
@@ -736,6 +736,37 @@ def test_max_sub_array():
     assert max_sub_array_v3([-2,1,-3,4,-1,2,1,-5,4]) == 6 #[4,-1,2,1]
     print "test passes"
 
+# q.69
+# Compute and return the square root of x.    
+def sqrt(x):
+    """return an integer
+    param x, an integer
+    """
+    def good_enough(guess):
+        precision = 0.001
+        f = abs(guess ** 2 - x)
+        return (f < precision)
+        
+    def improve(guess):
+        return (guess + x/guess) / 2.0
+            
+    counter = 1
+    guess = 1
+    while not good_enough(guess) and counter <= 100:
+        guess = improve(guess)
+        counter += 1
+    assert counter <= 100,'100 iterations done and no good answer'        
+    return int(guess)
+                
+def test_sqrt():
+    assert sqrt(0) == 0
+    assert sqrt(4) == 2
+    assert sqrt(5) == 2
+    assert sqrt(11) == 3
+    print "test passes"    
+    
+        
+
     
 def test():
     #test_majority_element()
@@ -753,6 +784,7 @@ def test():
     #test_is_valid()
     #test_add_two_numbers()
     #test_max_sub_array()
+    #test_sqrt()
 
 test()
     

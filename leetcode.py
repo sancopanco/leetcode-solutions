@@ -435,7 +435,77 @@ def test_add_binary():
     assert add_binary("11","1") == "100"
     assert add_binary("11","11") == "110"
     assert add_binary("1010","1011") == "10101"  #"10110"
-                                         #01101        
+                                         #01101      
+
+
+
+
+# Reverse digits of an integer.
+# Example1: x = 123, return 321
+# Example2: x = -123, return -321
+def reverse(x):
+    "return an integer"
+    sign = 1 
+    if(x < 0):
+        sign = -1 
+    y,result = abs(x),0
+    while y > 0:
+        d = y % 10
+        print d,y,result
+        y = y / 10
+        result = result * 10
+        print d,y,result
+        result = result + d
+        print result
+    return sign*result    
+    
+def test_reverse():
+    assert reverse(123) == 321
+    assert reverse(1) == 1
+    assert reverse(-1) == -1
+    assert reverse(11) == 11
+    assert reverse(-123) == -321
+    print "test passes"    
+    
+
+# 
+# Given a roman numeral, convert it to an integer.
+# Input is guaranteed to be within the range from 1 to 3999.
+def roman_to_int(s):
+    "return an integer"
+    {'I':1,'V':5,'X':10,'L':50,'C':100,'D':500,'M':1000}
+    
+    
+    
+def test_roman_to_int():
+    pass
+
+# q.125
+# Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+# The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+def is_valid(s):
+    "return a boolean"
+    st = []
+    for c in s:
+        if c in "({[":
+            st.append(c)
+        else:
+            if len(st) == 0: return False
+            last = st.pop()
+            if (c == ")") and ("(" != last): return False    
+            if (c == "]") and ("[" != last): return False
+            if (c == "}") and ("{" != last): return False
+    return len(st) == 0        
+    
+    
+def test_is_valid():
+    assert is_valid("()") == True
+    assert is_valid("()[]{}") == True
+    assert is_valid("(]") == False
+    assert is_valid("([)]") == False 
+    print "test passes"   
+    
+        
 def test():
     #test_majority_element()
     #test_compare_version()     
@@ -446,7 +516,10 @@ def test():
     #test_lengthof_lastword() 
     #test_count_and_say() 
     #test_is_balanced()
-    test_add_binary() 
+    #test_add_binary()
+    #test_reverse() 
+    #test_roman_to_int()
+    test_is_valid()
     
 
 test()

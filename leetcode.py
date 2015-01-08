@@ -765,6 +765,40 @@ def test_sqrt():
     assert sqrt(11) == 3
     print "test passes"    
     
+# q.3
+# Given a string, find the length of the longest substring without repeating characters. For example,
+# the longest substring without repeating letters for "abcabcbb" is "abc",
+# which the length is 3. For "bbbbb" the longest substring is "b", with the length of 1.
+def length_of_longest_substring(s):
+    "return an integer"
+    if len(s) == 0: return 0 
+    curr_len = 1
+    max_len = 1
+    prev_index =  None
+    visited = {}
+    visited[s[0]] = 0
+    for i in range(1,len(s)):
+        prev_index = visited.get(s[i],-1)
+        if prev_index == -1 or i - curr_len > prev_index:
+            curr_len = curr_len + 1
+        else:
+            if curr_len > max_len:
+                max_len = curr_len
+            curr_len = i - prev_index    
+        visited[s[i]] = i   
+    if curr_len > max_len:
+        max_len = curr_len    
+        
+    return max_len;        
+        
+def test_length_of_longest_substring():
+    assert length_of_longest_substring("abcabcbb") == 3#"abc"
+    assert  length_of_longest_substring("ABDEFGABEF") == 6#"BDEFGA"
+    assert length_of_longest_substring("bbbbb") == 1#"b"
+    assert length_of_longest_substring("") == 0
+    print "test passes"
+        
+
         
 
     
@@ -785,6 +819,7 @@ def test():
     #test_add_two_numbers()
     #test_max_sub_array()
     #test_sqrt()
+    test_length_of_longest_substring()
 
 test()
     

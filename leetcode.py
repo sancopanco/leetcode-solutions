@@ -26,11 +26,11 @@ def majority_element_v2(nums):
 def test_majority_element():
     assert majority_element([1]) == 1
     assert majority_element([1,2,2,2,2,4]) == 2
-    assert majority_element([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]) == 1
+    assert majority_element([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]) == 1
     
     assert majority_element_v2([1]) == 1
     assert majority_element_v2([1,2,2,2,2,4]) == 2
-    assert majority_element_v2([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]) == 1
+    assert majority_element_v2([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]) == 1
     print "test passed"
 
 #q.165
@@ -449,8 +449,10 @@ def test_roman_to_int():
     pass
 
 # q.125
-# Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
-# The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+# Given a string containing just the characters
+# '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+# The brackets must close in the correct order,
+# "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
 def is_valid(s):
     "return a boolean"
     st = []
@@ -488,10 +490,11 @@ def test_is_valid():
 #  which are ignored and have no effect on the behavior of this function.
 #
 # If the first sequence of non-whitespace characters in str is not a valid integral number,
-# or if no such sequence exists because either str is empty or it contains only whitespace characters, no conversion is performed.
-#
+# or if no such sequence exists because either str is empty 
+# or it contains only whitespace characters, no conversion is performed.
 # If no valid conversion could be performed, a zero value is returned.
-# If the correct value is out of the range of representable values, INT_MAX (2147483647) or INT_MIN (-2147483648) is returned
+# If the correct value is out of the range of representable values, 
+# INT_MAX (2147483647) or INT_MIN (-2147483648) is returned
 
 def atoi(str):
     "return an integer"

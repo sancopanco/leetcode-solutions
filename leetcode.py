@@ -800,10 +800,123 @@ def length_of_longest_substring(s):
         
 def test_length_of_longest_substring():
     assert length_of_longest_substring("abcabcbb") == 3#"abc"
-    assert  length_of_longest_substring("ABDEFGABEF") == 6#"BDEFGA"
+    assert length_of_longest_substring("ABDEFGABEF") == 6#"BDEFGA"
     assert length_of_longest_substring("bbbbb") == 1#"b"
     assert length_of_longest_substring("") == 0
     print "test passes"
+        
+
+# Given a set of distinct integers, S, return all possible subsets.
+# Elements in a subset must be in non-descending order.
+# The solution set must not contain duplicate subsets.
+def sub_sets(s):
+    """return a list of lists of integer
+    param S, a list of integer
+    """
+    r = [[]]
+    for e in s:
+        print 'r: %-55r e: %r' % (e,r)
+        r += [sorted(x + [e]) for x in r]
+    return r
+
+def power_set(original_set):
+    list_size = len(original_set)
+    num_sets = 2**list_size
+    powerset = []
+    for i in range(num_sets)[1:]:
+        subset = []
+        binary_digits = list(int2bin(i,list_size))
+        list_indices = range(list_size)
+        for (bit,index) in zip(binary_digits,list_indices):
+            if bit == '1':
+                subset.append(orignal_list[index])
+        powerset.append(subset)       
+    return powerset   
+    
+def findsubsets(S,m):
+    import itertools
+    return set(itertools.combinations(S, m))
+
+def power_set_v2(s):
+    if not s: return [[]]
+    return   power_set_v3(s[1:]) + [ [s[0]] + x for x in power_set_v3(s[1:]) ]            
+
+def power_set_v3(iterable):
+    from pprint import pprint as pp
+    from itertools import chain, combinations
+    "powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"
+    s = list(iterable)
+    return chain.from_iterable(combinations(s, r) for r in range(len(s)+1))    
+            
+     
+ 
+def combinations(iterable, r):
+    # combinations('ABCD', 2) --> AB AC AD BC BD CD
+    # combinations(range(4), 3) --> 012 013 023 123
+    pool = tuple(iterable)
+    n = len(pool)
+    if r > n:
+        return
+    indices = range(r)
+    yield tuple(pool[i] for i in indices)
+    while True:
+        for i in reversed(range(r)):
+            if indices[i] != i + n - r:
+                break
+        else:
+            return
+        indices[i] += 1
+        for j in range(i+1, r):
+            indices[j] = indices[j-1] + 1
+        yield tuple(pool[i] for i in indices)
+
+def combinations_v2(iterable, r):
+    pool = tuple(iterable)
+    n = len(pool)
+    for indices in permutations(range(n), r):
+        if sorted(indices) == list(indices):
+            yield tuple(pool[i] for i in indices)
+ 
+ 
+    
+def int2bin(n, count=24):
+    """returns the binary of integer n, using count number of digits"""
+    return "".join([str((n >> y) & 1) for y in range(count-1, -1, -1)])
+     
+    
+    
+    
+def test_sub_sets():
+    assert sub_sets([]) == [[]]
+    print  sub_sets([1])   
+    assert sub_sets([1]) == [[],[1]]    
+    print  sub_sets([1,2])
+    #assert sub_sets([1,2]) == [[1],[2],[1,2],[]]    
+    print sub_sets([1,2,3])
+    assert sub_sets([1,2,3]) == [[3],[1],[2],[1,2,3],[1,3],[2,3],[1,2],[]]    
+
+
+# Given a collection of integers that might contain duplicates, S, return all possible subsets
+# Elements in a subset must be in non-descending order.
+# The solution set must not contain duplicate subsets
+def subsets_with_dup(s):
+    """return a list of lists of integer
+    param s, a list of integer
+    """
+    r = [[]]
+    for e in s:
+        print 'r: %-55r e: %r' % (e,r)
+        for x in r:
+            a = sorted(x + [e])
+            if not(a in r): r.append(a) 
+    return r
+    
+    
+    
+    
+
+def test_subsets_with_dup():
+    assert subsets_with_dup([1,2,2]) == [[2],[1],[1,2,2],[2,2],[1,2],[]]
         
 
         
@@ -826,7 +939,9 @@ def test():
     #test_add_two_numbers()
     #test_max_sub_array()
     #test_sqrt()
-    test_length_of_longest_substring()
+    #test_length_of_longest_substring()
+    #test_sub_sets()
+    test_subsets_with_dup()
 
 test()
     
